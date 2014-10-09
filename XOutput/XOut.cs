@@ -108,7 +108,11 @@ namespace XOutput
 
         private void Swap(int i, int p)
         {
+            bool s = checks[i].Checked;
+            checks[i].Checked = checks[p].Checked;
+            checks[p].Checked = s;
             controllerManager.Swap(i, p);
+            
             UpdateInfo(controllerManager.detectControllers());
         }
 
@@ -116,8 +120,8 @@ namespace XOutput
 
         private void enabledChanged(int i)
         {
-            this.boxes[i].Enabled = !boxes[i].Enabled;
-            controllerManager.setControllerEnable(i, boxes[i].Enabled);
+            boxes[i].Enabled = checks[i].Checked;
+            controllerManager.setControllerEnable(i, checks[i].Checked);
         }
 
         private void openOptions(int i)

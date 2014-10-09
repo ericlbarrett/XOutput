@@ -65,7 +65,7 @@ namespace XOutput
 
         public void setControllerEnable(int i, bool b)
         {
-            devices[0].enabled = b;
+            devices[i].enabled = b;
         }
 
         private Int32 Scale(Int32 Value, Boolean Flip)
@@ -111,6 +111,7 @@ namespace XOutput
                 {
                     running = true;
                     processingData[i] = new ContData();
+                    Console.WriteLine("Plug " + i);
                     Plugin(i + 1);
                     int t = i;
                     workers[i] = new Thread(() =>
