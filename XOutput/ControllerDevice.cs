@@ -181,6 +181,7 @@ namespace XOutput
             cOutput.LX = output[18];
             cOutput.RY = output[19];
             cOutput.RX = output[20];
+            
         }
 
 

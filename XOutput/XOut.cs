@@ -64,6 +64,7 @@ namespace XOutput
                     for (int i = 0; i < 4; i++)
                     {
                         checks[i].Enabled = false;
+                        isExclusive.Enabled = false;
                         foreach (Control con in boxes[i].Controls)
                         {
                             con.Enabled = false;
@@ -79,6 +80,7 @@ namespace XOutput
                     for (int i = 0; i < 4; i++)
                     {
                         checks[i].Enabled = true;
+                        isExclusive.Enabled = true;
                         foreach (Control con in boxes[i].Controls)
                         {
                             con.Enabled = true;
@@ -155,6 +157,11 @@ namespace XOutput
             catch { }
 
             base.WndProc(ref m);
+        }
+
+        private void isExclusive_CheckedChanged(object sender, EventArgs e)
+        {
+            controllerManager.changeExclusive(!controllerManager.isExclusive);
         }
 
 

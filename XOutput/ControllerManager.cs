@@ -23,6 +23,7 @@ namespace XOutput
         public const String BUS_CLASS_GUID = "{F679F562-3164-42CE-A4DB-E7DDBE723909}";
         private ContData[] processingData = new ContData[4];
         private Control handle;
+        public bool isExclusive = false;
 
 
         private object[] ds4locks = new object[4];
@@ -40,6 +41,29 @@ namespace XOutput
         }
 
         #region Utility Functions
+
+        public void changeExclusive(bool e)
+        {
+            isExclusive = e;
+            for (int i = 0; i < 4; i++)
+            {
+                if (devices[i] != null)
+                {
+                    if (isExclusive)
+                    {
+                        devices[i].joystick.Unacquire();
+                        devices[i].joystick.SetCooperativeLevel(handle, CooperativeLevel.Foreground | CooperativeLevel.Exclusive);
+                        devices[i].joystick.Acquire();
+                    }
+                    else
+                    {
+                        devices[i].joystick.Unacquire();
+                        devices[i].joystick.SetCooperativeLevel(handle, CooperativeLevel.Nonexclusive | CooperativeLevel.Background);
+                        devices[i].joystick.Acquire();
+                    }
+                }
+            }
+        }
 
         public ControllerDevice getController(int n)
         {
@@ -168,7 +192,14 @@ namespace XOutput
                 if (spot == -1)
                     continue;
 
-                joystick.SetCooperativeLevel(handle, CooperativeLevel.Foreground | CooperativeLevel.Exclusive);
+                if (isExclusive)
+                {
+                    joystick.SetCooperativeLevel(handle, CooperativeLevel.Foreground | CooperativeLevel.Exclusive);
+                }
+                else
+                {
+                    joystick.SetCooperativeLevel(handle, CooperativeLevel.Nonexclusive | CooperativeLevel.Background);
+                }
                 joystick.Properties.BufferSize = 128;
                 joystick.Acquire();
 

@@ -48,6 +48,7 @@
             this.optionsFour = new System.Windows.Forms.Button();
             this.moveFourUp = new System.Windows.Forms.Button();
             this.enabledFour = new System.Windows.Forms.CheckBox();
+            this.isExclusive = new System.Windows.Forms.CheckBox();
             this.controllerBoxOne.SuspendLayout();
             this.controllerBoxTwo.SuspendLayout();
             this.controllerBoxThree.SuspendLayout();
@@ -245,11 +246,23 @@
             this.enabledFour.Text = "Enabled";
             this.enabledFour.UseVisualStyleBackColor = true;
             // 
+            // isExclusive
+            // 
+            this.isExclusive.AutoSize = true;
+            this.isExclusive.Location = new System.Drawing.Point(18, 320);
+            this.isExclusive.Name = "isExclusive";
+            this.isExclusive.Size = new System.Drawing.Size(75, 17);
+            this.isExclusive.TabIndex = 9;
+            this.isExclusive.Text = "Exclusivity";
+            this.isExclusive.UseVisualStyleBackColor = true;
+            this.isExclusive.CheckedChanged += new System.EventHandler(this.isExclusive_CheckedChanged);
+            // 
             // XOut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 351);
+            this.Controls.Add(this.isExclusive);
             this.Controls.Add(this.enabledOne);
             this.Controls.Add(this.enabledTwo);
             this.Controls.Add(this.enabledThree);
@@ -303,5 +316,6 @@
         private System.Windows.Forms.CheckBox enabledTwo;
         private System.Windows.Forms.CheckBox enabledThree;
         private System.Windows.Forms.CheckBox enabledFour;
+        private System.Windows.Forms.CheckBox isExclusive;
     }
 }
