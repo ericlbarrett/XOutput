@@ -110,9 +110,9 @@ namespace XOutput
 
         private void Swap(int i, int p)
         {
-            bool s = checks[i].Checked;
-            checks[i].Checked = checks[p].Checked;
-            checks[p].Checked = s;
+            bool s = checks[i - 1].Checked;
+            checks[i- 1].Checked = checks[p - 1].Checked;
+            checks[p - 1].Checked = s;
             controllerManager.Swap(i, p);
             
             UpdateInfo(controllerManager.detectControllers());

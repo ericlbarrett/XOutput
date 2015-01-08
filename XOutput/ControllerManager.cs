@@ -154,9 +154,10 @@ namespace XOutput
                 if (devices[i] != null && !directInput.IsDeviceAttached(devices[i].joystick.Information.InstanceGuid))
                 {
                     Console.WriteLine(devices[i].joystick.Properties.InstanceName + " Removed");
+                    devices[i] = null;
+                    workers[i].Abort();
                     workers[i] = null;
                     Unplug(i + 1);
-                    devices[i] = null;
                 }
             }
 
@@ -204,6 +205,16 @@ namespace XOutput
                 joystick.Acquire();
 
                 devices[spot] = new ControllerDevice(joystick, spot + 1);
+                if (IsActive)
+                {
+                    processingData[spot] = new ContData();
+                    Console.WriteLine("Plug " + spot);
+                    Plugin(spot + 1);
+                    int t = spot;
+                    workers[spot] = new Thread(() =>
+                    { ProcessData(t); });
+                    workers[spot].Start();
+                }
             }
             return devices;
         }
@@ -217,6 +228,7 @@ namespace XOutput
                 {
                     if (devices[i] != null && devices[i].enabled)
                     {
+                        Console.WriteLine(i);
                         workers[i].Abort();
                         workers[i] = null;
                         Unplug(i + 1);
@@ -279,6 +291,11 @@ namespace XOutput
             {
                 lock (ds4locks[n])
                 {
+                    if (devices[n] == null)
+                    {
+                        //Console.WriteLine("die" + n.ToString());
+                        //continue;
+                    }
                     byte[] data = devices[n].getoutput();
                     if (data != null && devices[n].enabled)
                     {
