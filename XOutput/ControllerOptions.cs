@@ -36,7 +36,7 @@ namespace XOutput
                     m.addOption("D-Pad " + i.ToString() + " Left", dpads, new byte[] { 34, (byte)(i - 1), (byte)ind });
                     m.addOption("D-Pad " + i.ToString() + " Right", dpads, new byte[] { 35, (byte)(i - 1), (byte)ind });
                 }
-                for (int i = 1; i <= 24; i++)
+                for (int i = 1; i <= dev.joystick.Capabilities.AxesCount; i++)
                 {
                     m.addOption("Axis " + i.ToString(), axes, new byte[] { 16, (byte)(i - 1), (byte)ind });
                     m.addOption("IAxis " + i.ToString(), iaxes, new byte[] { 17, (byte)(i - 1), (byte)ind });
@@ -50,6 +50,9 @@ namespace XOutput
 
         private string getBindingText(int i)
         {
+            if (dev.mapping[i * 2] == 255) {
+                return "None";
+            }
             byte subtype = (byte)(dev.mapping[i * 2] & 0x0F);
             byte type = (byte)((dev.mapping[i * 2] & 0xF0) >> 4);
             byte num = (byte)(dev.mapping[(i * 2) + 1] + 1);
