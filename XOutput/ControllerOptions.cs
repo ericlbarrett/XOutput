@@ -8,42 +8,40 @@ namespace XOutput
     {
         ControllerDevice dev;
 
-
         public ControllerOptions(ControllerDevice device)
         {
             InitializeComponent();
             dev = device;
-            int buttons = dev.joystick.Capabilities.ButtonCount;
-            int dpads = dev.joystick.Capabilities.PovCount;
             int ind = 0;
 
-            foreach (MultiLevelComboBox m in this.Controls.OfType<MultiLevelComboBox>())
-            {
+            foreach (MultiLevelComboBox m in this.Controls.OfType<MultiLevelComboBox>()) {
                 m.Items[0] = getBindingText(ind);
-
-                m.addMenu("Axes");
-                m.addMenu("Buttons");
-                m.addMenu("D-Pads");
-                m.addMenu("Axes", "Inverted Axes");
-                m.addMenu("Axes", "Half Axes");
-                m.addMenu("Axes", "Inverted Half Axes");
-                for (int i = 1; i <= buttons; i++)
+                m.addOption("None");
+                m.addOption("Detect");
+                ToolStripMenuItem axes = m.addMenu("Axes");
+                ToolStripMenuItem buttons = m.addMenu("Buttons");
+                ToolStripMenuItem dpads = m.addMenu("D-Pads");
+                ToolStripMenuItem iaxes = m.addMenu("Inverted Axes", axes);
+                ToolStripMenuItem haxes = m.addMenu("Half Axes", axes);
+                ToolStripMenuItem ihaxes = m.addMenu("Inverted Half Axes", axes);
+                //Tag structure: [Type, Number, Index]
+                for (int i = 1; i <= dev.joystick.Capabilities.ButtonCount; i++)
                 {
-                    m.addOption("Buttons", "Button " + i.ToString(), new byte[] { 0, (byte)(i - 1), (byte)ind });
+                    m.addOption("Button " + i.ToString(), buttons, new byte[] { 0, (byte)(i - 1), (byte)ind });
                 }
-                for (int i = 1; i <= dpads; i++)
+                for (int i = 1; i <= dev.joystick.Capabilities.PovCount; i++)
                 {
-                    m.addOption("D-Pads", "D-Pad " + i.ToString() + " Up", new byte[] { 32, (byte)(i - 1), (byte)ind });
-                    m.addOption("D-Pads", "D-Pad " + i.ToString() + " Down", new byte[] { 33, (byte)(i - 1), (byte)ind });
-                    m.addOption("D-Pads", "D-Pad " + i.ToString() + " Left", new byte[] { 34, (byte)(i - 1), (byte)ind });
-                    m.addOption("D-Pads", "D-Pad " + i.ToString() + " Right", new byte[] { 35, (byte)(i - 1), (byte)ind });
+                    m.addOption("D-Pad " + i.ToString() + " Up", dpads, new byte[] { 32, (byte)(i - 1), (byte)ind });
+                    m.addOption("D-Pad " + i.ToString() + " Down", dpads, new byte[] { 33, (byte)(i - 1), (byte)ind });
+                    m.addOption("D-Pad " + i.ToString() + " Left", dpads, new byte[] { 34, (byte)(i - 1), (byte)ind });
+                    m.addOption("D-Pad " + i.ToString() + " Right", dpads, new byte[] { 35, (byte)(i - 1), (byte)ind });
                 }
                 for (int i = 1; i <= 24; i++)
                 {
-                    m.addOption("Axes", "Axis " + i.ToString(), new byte[] { 16, (byte)(i - 1), (byte)ind });
-                    m.addOption("Axes", "Inverted Axes", "IAxis " + i.ToString(), new byte[] { 17, (byte)(i - 1), (byte)ind });
-                    m.addOption("Axes", "Half Axes", "HAxis" + i.ToString(), new byte[] { 18, (byte)(i - 1), (byte)ind });
-                    m.addOption("Axes", "Inverted Half Axes", "IHAxis" + i.ToString(), new byte[] { 19, (byte)(i - 1), (byte)ind });
+                    m.addOption("Axis " + i.ToString(), axes, new byte[] { 16, (byte)(i - 1), (byte)ind });
+                    m.addOption("IAxis " + i.ToString(), iaxes, new byte[] { 17, (byte)(i - 1), (byte)ind });
+                    m.addOption("HAxis" + i.ToString(), haxes, new byte[] { 18, (byte)(i - 1), (byte)ind });
+                    m.addOption("IHAxis" + i.ToString(), ihaxes, new byte[] { 19, (byte)(i - 1), (byte)ind });
                 }
                 m.SelectionChangeCommitted += new System.EventHandler(SelectionChanged);
                 ind++;
@@ -91,24 +89,17 @@ namespace XOutput
             return s;
         }
 
-        private void SelectionChanged(object sender, EventArgs e)
-        {
-            MLCBEventArgs evt = (MLCBEventArgs)e;
-            ToolStripMenuItem i = evt.Selection;
+        private void SelectionChanged(object sender, EventArgs e) {
+            ToolStripMenuItem i = (ToolStripMenuItem)sender;
             byte[] b = (byte[])i.Tag;
             dev.mapping[b[2] * 2] = b[0];
             dev.mapping[(b[2] * 2) + 1] = b[1];
             dev.Save();
         }
 
-        private void onClose(object sender, EventArgs e)
-        {
+        private void onClose(object sender, EventArgs e) {
             dev.Save();
         }
-
-
-
-
 
     }
 }

@@ -55,6 +55,9 @@ namespace XOutput
 
         public static void Save(string _Guid, byte[] Mapping)
         {
+            string saveString;
+
+
             string s = "";
             if (File.Exists(fileName))
             {
