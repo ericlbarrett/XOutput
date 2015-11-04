@@ -13,12 +13,12 @@ namespace XOutput
         private static void parseLine(string line) {
             int i; //The index of the control in the map array
             byte type = 255, subType = 255, num = 255;
-            for (i = 0; i < 21; i++) {
+            for (i = 0; i < 21; i++) { //find which button this is for
                 if (line.StartsWith(names[i])) {
                     break;
                 }
             }
-            string val = line.Remove(0, names[i].Length + 1);
+            string val = line.Remove(0, names[i].Length + 1); //remove up to the = sign
             if (val.StartsWith("btn")) {
                 type = 0;
                 subType = 0;
@@ -93,7 +93,7 @@ namespace XOutput
             return null;
         }
 
-        public static void Save(string _Guid, byte[] Mapping) {
+        public static void Save(string _Guid, byte[] Mapping) { //I feel this this function is really messy
             string saveString = generateSaveString(Mapping);
             string fileString = "";
             if (File.Exists(fileName)) {
