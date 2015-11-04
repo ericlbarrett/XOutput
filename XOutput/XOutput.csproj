@@ -86,6 +86,7 @@
     <Compile Include="ControllerOptions.Designer.cs">
       <DependentUpon>ControllerOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="MultiLevelComboBox.cs">
       <SubType>Component</SubType>
     </Compile>

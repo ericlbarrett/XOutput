@@ -4,21 +4,21 @@ using System.IO;
 namespace XOutput
 {
     static class SaveManager {
-        static string[] names = new string[] {"button_a", "button_b", "button_x", "button_y",
+        static string[] properties = new string[] {"button_a", "button_b", "button_x", "button_y",
             "dpad_up", "dpad_down", "dpad_left", "dpad_right",
             "left_trigger", "right_trigger", "left_bumper", "right_bumper", "left_axebutton", "right_axebutton",
             "home", "start", "back", "left_y", "left_x", "right_y", "right_x"};
-        static private string fileName = @"XOutput.ini";
+        static private string dirName = @"configs";
 
-        private static void parseLine(string line) {
+        private static byte[] parseLine(string line) { //This needs better error hadnling
             int i; //The index of the control in the map array
             byte type = 255, subType = 255, num = 255;
             for (i = 0; i < 21; i++) { //find which button this is for
-                if (line.StartsWith(names[i])) {
+                if (line.StartsWith(properties[i])) {
                     break;
                 }
             }
-            string val = line.Remove(0, names[i].Length + 1); //remove up to the = sign
+            string val = line.Remove(0, properties[i].Length + 1); //remove up to the = sign
             if (val.StartsWith("btn")) {
                 type = 0;
                 subType = 0;
@@ -52,87 +52,44 @@ namespace XOutput
                     num = byte.Parse(val.Remove(val.Length - 4));
                 } else if (val.EndsWith("right")) {
                     subType = 3;
-                    num = byte.Parse(val.Remove(val.Length - 4));
+                    num = byte.Parse(val.Remove(val.Length - 5));
                 }
             } else if (val == "disabled") {
             }
-            Console.WriteLine(type);
-            Console.WriteLine(subType);
-            Console.WriteLine(num);
-
+            num -= 1;
+            byte l = (byte)(type << 4 | subType);
+            return new byte[] { (byte)(i * 2), l, num};
         }
 
-        public static byte[] Load(string _Guid) {
-            bool parsing = false;
-            if (File.Exists(fileName)) {
-                TextReader mappingFile = new StreamReader(fileName);
-                string strLine = mappingFile.ReadLine();
-                while (strLine != null) {
-                    strLine = strLine.Trim();
-                    if (strLine != "") {
-                        if (strLine.StartsWith("[") && strLine.EndsWith("]")) {
-                            if (parsing) {
-                                break;
-                            }
-                            string Guid = strLine.Substring(1, strLine.Length - 2);
-                            if (Guid == _Guid) {
-                                parsing = true;
-                            }
-                        } else if (parsing) {
-                            parseLine(strLine);
-                        }
-                    }
-                    strLine = mappingFile.ReadLine();
-                }
-                mappingFile.Close();
-            } else {
-                TextWriter tw = new StreamWriter(fileName);
-                tw.Write("");
-                tw.Close();
+        public static byte[] Load(string devName) {
+            if (!Directory.Exists(dirName)) {
+                Directory.CreateDirectory(dirName);
+                return null;
             }
-            return null;
+            string path = dirName + "\\" + devName + ".ini";
+            if (!File.Exists(path)) {
+                File.Create(path);
+                return null;
+            }
+            byte[] mapping = new byte[42];
+            string[] config = File.ReadAllLines(path);
+            for (int i = 0; i < config.Length; i++) {
+                byte[] data = parseLine(config[i]);
+                mapping[data[0]] = data[1];
+                mapping[data[0] + 1] = data[2];
+            }
+            return mapping;
         }
-
-        public static void Save(string _Guid, byte[] Mapping) { //I feel this this function is really messy
-            string saveString = generateSaveString(Mapping);
-            string fileString = "";
-            if (File.Exists(fileName)) {
-
-                TextReader mappingFile = new StreamReader(fileName);
-                string strLine = mappingFile.ReadLine();
-                bool saved = false;
-                bool noWrite = false;
-
-                while (strLine != null) {
-                    strLine = strLine.Trim(); //Trim gets rid of line endings
-                    if (strLine != "") {
-                        if (strLine.StartsWith("[") && strLine.EndsWith("]")) {
-                            noWrite = false;
-                            string Guid = strLine.Substring(1, strLine.Length - 2);
-                            if (Guid == _Guid) {
-                                fileString += strLine + "\r\n";
-                                fileString += saveString;
-                                saved = true;
-                                noWrite = true;
-                            }
-                        }
-                        if (!noWrite)
-                            fileString += strLine + "\r\n";
-                    }
-                }
-                mappingFile.Close();
-
-                if (!saved) {
-                    fileString += "[" + _Guid + "]" + "\r\n";
-                    fileString += saveString;
-                }
-            } else {
-                fileString += "[" + _Guid + "]" + "\r\n";
-                fileString += saveString;
+        
+        public static void Save(string devName, byte[] mapping) {
+            if (!Directory.Exists(dirName)) {
+                Directory.CreateDirectory(dirName);
             }
-            TextWriter tw = new StreamWriter(fileName, false);
-            tw.Write(fileString);
-            tw.Close();
+            string path = dirName + "\\" + devName + ".ini";
+            if (!File.Exists(path)) {
+                File.Create(path);
+            }
+            File.WriteAllText(path, generateSaveString(mapping));
         }
 
         private static string generateSaveString(byte[] Mapping) {
@@ -142,7 +99,7 @@ namespace XOutput
 
             string saveString = "";
             for (int i = 0; i < 21; i++) {
-                saveString += names[i] + "=";
+                saveString += properties[i] + "=";
                 if (Mapping[i * 2] == 255) {
                     saveString += "disabled\r\n";
                     continue;
