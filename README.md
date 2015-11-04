@@ -1,5 +1,8 @@
-XOutput is a simple DirectInput to XInput wrapper made in C#
+XOutput is a simple DirectInput to XInput wrapper made in C#. It uses the SCPDriver has a backend.
 
+#Building
+
+XOutput can be built in Visual Studio 2013+. It repends on the SlimDX developer SDK which can be found [here](http://slimdx.org/)
 
 #How to Set Up
 

@@ -31,7 +31,6 @@ namespace XOutput
         public ControllerManager(Control _handle)
             : base(BUS_CLASS_GUID)
         {
-            Logger.Log("test");
             directInput = new DirectInput();
             devices = new ControllerDevice[4];
             handle = _handle;
