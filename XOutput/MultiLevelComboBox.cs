@@ -76,7 +76,7 @@ namespace XOutput
             switch (m.Msg)
             {
                 case 0x87: //WM_GETDLGCODE
-                    break;
+                    break;//Block key down messages
                 case 0x201: //WM_LBUTTONDOWN
                     DroppedDown = !DroppedDown;
                     break;

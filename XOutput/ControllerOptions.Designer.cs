@@ -582,9 +582,10 @@
             this.Controls.Add(this.dropLX);
             this.Controls.Add(this.dropRY);
             this.Controls.Add(this.dropRX);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ControllerOptions";
             this.Text = "Controller Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.onClose);
