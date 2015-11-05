@@ -1,5 +1,4 @@
 ﻿using SlimDX.DirectInput;
-//using SharpDX.DirectInput;
 using System;
 using System.Diagnostics;
 using System.Threading;
