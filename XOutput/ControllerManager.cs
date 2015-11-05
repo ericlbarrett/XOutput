@@ -1,4 +1,5 @@
 ﻿using SlimDX.DirectInput;
+//using SharpDX.DirectInput;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -52,7 +53,7 @@ namespace XOutput
                     if (isExclusive)
                     {
                         devices[i].joystick.Unacquire();
-                        devices[i].joystick.SetCooperativeLevel(handle, CooperativeLevel.Exclusive | CooperativeLevel.Foreground);
+                        devices[i].joystick.SetCooperativeLevel(handle, CooperativeLevel.Exclusive | CooperativeLevel.Background);
                         devices[i].joystick.Acquire();
                     }
                     else
@@ -195,7 +196,7 @@ namespace XOutput
 
                 if (isExclusive)
                 {
-                    joystick.SetCooperativeLevel(handle, CooperativeLevel.Foreground | CooperativeLevel.Exclusive);
+                    joystick.SetCooperativeLevel(handle, CooperativeLevel.Exclusive | CooperativeLevel.Background);
                 }
                 else
                 {

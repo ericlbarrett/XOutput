@@ -1,5 +1,6 @@
 ﻿using System;
 using SlimDX.DirectInput;
+//using SharpDX.DirectInput;
 
 namespace XOutput
 {

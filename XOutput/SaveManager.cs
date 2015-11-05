@@ -86,7 +86,8 @@ namespace XOutput
             string[] config = File.ReadAllLines(path);
             for (int i = 0; i < config.Length; i++) {
                 byte[] data = parseLine(config[i]);
-                if (data[0] > 20) {
+                Console.Write(data[0]);
+                if (data[0] > 40) {
                     continue;
                 }
                 mapping[data[0]] = data[1];
