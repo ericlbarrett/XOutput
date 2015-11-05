@@ -52,7 +52,7 @@ namespace XOutput
                     if (isExclusive)
                     {
                         devices[i].joystick.Unacquire();
-                        devices[i].joystick.SetCooperativeLevel(handle, CooperativeLevel.Foreground | CooperativeLevel.Exclusive);
+                        devices[i].joystick.SetCooperativeLevel(handle, CooperativeLevel.Exclusive | CooperativeLevel.Foreground);
                         devices[i].joystick.Acquire();
                     }
                     else

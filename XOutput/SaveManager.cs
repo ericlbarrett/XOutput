@@ -17,6 +17,14 @@ namespace XOutput
                 if (line.StartsWith(properties[i])) {
                     break;
                 }
+                if (i == 20) {
+                    Logger.Log("Error parsing: Could not identify property");
+                    return new byte[] { 255, 255, 255};
+                }
+            }
+            if (properties[i].Length + 1 > line.Length) {
+                Logger.Log("Error parsing: No assignment");
+                return new byte[] { 255, 255, 255 };
             }
             string val = line.Remove(0, properties[i].Length + 1); //remove up to the = sign
             if (val.StartsWith("btn")) {
@@ -55,6 +63,9 @@ namespace XOutput
                     num = byte.Parse(val.Remove(val.Length - 5));
                 }
             } else if (val == "disabled") {
+            } else {
+                Logger.Log("Error parsing: Could not identify value");
+                return new byte[] { 255, 255, 255 };
             }
             num -= 1;
             byte l = (byte)(type << 4 | subType);
@@ -75,6 +86,9 @@ namespace XOutput
             string[] config = File.ReadAllLines(path);
             for (int i = 0; i < config.Length; i++) {
                 byte[] data = parseLine(config[i]);
+                if (data[0] > 20) {
+                    continue;
+                }
                 mapping[data[0]] = data[1];
                 mapping[data[0] + 1] = data[2];
             }
