@@ -9,6 +9,7 @@ namespace XOutput
             "left_trigger", "right_trigger", "left_bumper", "right_bumper", "left_axebutton", "right_axebutton",
             "home", "start", "back", "left_y", "left_x", "right_y", "right_x"};
         static private string dirName = @"configs";
+        static private string deviceIndexFileName = @"controllerIndex.ini";
 
         private static byte[] parseLine(string line) { //This needs better error hadnling
             int i; //The index of the control in the map array
@@ -72,18 +73,34 @@ namespace XOutput
             return new byte[] { (byte)(i * 2), l, num};
         }
 
-        public static byte[] Load(string devName) {
+        public static byte[] Load(string deviceId) {
             if (!Directory.Exists(dirName)) {
                 Directory.CreateDirectory(dirName);
                 return null;
             }
-            string path = dirName + "\\" + devName + ".ini";
-            if (!File.Exists(path)) {
-                File.Create(path);
+            if (!File.Exists(deviceIndexFileName)) {
+                return null;
+            }
+
+            string deviceName = "";
+            string[] deviceIndex = File.ReadAllLines(deviceIndexFileName);
+            for (int i = 0; i < deviceIndex.Length; i++) {
+                if (deviceIndex[i] == deviceId) {
+                    deviceName = deviceIndex[i + 1];
+                    break;
+                }
+            }
+            if(deviceName == "") {
+                return null;
+            }
+
+            string configPath = dirName + "\\" + deviceName + ".ini";
+            if (!File.Exists(configPath)) {
+                File.Create(configPath);
                 return null;
             }
             byte[] mapping = new byte[42];
-            string[] config = File.ReadAllLines(path);
+            string[] config = File.ReadAllLines(configPath);
             for (int i = 0; i < config.Length; i++) {
                 byte[] data = parseLine(config[i]);
                 Console.Write(data[0]);
@@ -96,15 +113,28 @@ namespace XOutput
             return mapping;
         }
         
-        public static void Save(string devName, byte[] mapping) {
+        public static void Save(string deviceId, string deviceName, byte[] mapping) {
             if (!Directory.Exists(dirName)) {
                 Directory.CreateDirectory(dirName);
             }
-            string path = dirName + "\\" + devName + ".ini";
-            if (!File.Exists(path)) {
-                File.Create(path);
+
+            string[] deviceIndex = new string[] { deviceId, deviceName };
+            if (File.Exists(deviceIndexFileName)) {
+                deviceIndex = File.ReadAllLines(deviceIndexFileName);
+                for (int i = 0; i < deviceIndex.Length; i++) {
+                    if (deviceIndex[i] == deviceId) {
+                        deviceIndex[i + 1] = deviceName;
+                        break;
+                    }
+                }
             }
-            File.WriteAllText(path, generateSaveString(mapping));
+            File.WriteAllLines(deviceIndexFileName, deviceIndex);
+
+            string configPath = dirName + "\\" + deviceName + ".ini";
+            if (!File.Exists(configPath)) {
+                File.Create(configPath);
+            }
+            File.WriteAllText(configPath, generateSaveString(mapping));
         }
 
         private static string generateSaveString(byte[] Mapping) {
