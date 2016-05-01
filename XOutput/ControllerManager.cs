@@ -24,9 +24,13 @@ namespace XOutput
         private ContData[] processingData = new ContData[4];
         private Control handle;
         public bool isExclusive = false;
+        public bool isPersistent = true;
 
 
         private object[] ds4locks = new object[4];
+        private bool[] enabled = new bool[4];
+        private bool[] plugged = new bool[4];
+        private bool[] threadRunning = new bool[4];
 
         public ControllerManager(Control _handle)
             : base(BUS_CLASS_GUID)
@@ -38,6 +42,7 @@ namespace XOutput
             ds4locks[1] = new object();
             ds4locks[2] = new object();
             ds4locks[3] = new object();
+            enabled[0] = enabled[1] = enabled[2] = enabled[3] = true;
         }
 
         #region Utility Functions
@@ -65,6 +70,11 @@ namespace XOutput
             }
         }
 
+        public void changePersistent(bool v)
+        {
+            isPersistent = v;
+        }
+
         public ControllerDevice getController(int n)
         {
             return devices[n];
@@ -80,6 +90,8 @@ namespace XOutput
                 devices[i - 1] = devices[p - 1];
                 devices[p - 1] = s;
                 devices[p - 1].changeNumber(p);
+                enabled[i - 1] = devices[i - 1].enabled;
+                enabled[p - 1] = devices[p - 1].enabled;
 
                 if (devices[i - 1] != null)
                     devices[i - 1].changeNumber(i);
@@ -89,6 +101,7 @@ namespace XOutput
 
         public void setControllerEnable(int i, bool b)
         {
+            enabled[i] = b;
             devices[i].enabled = b;
         }
 
@@ -133,13 +146,13 @@ namespace XOutput
             {
                 if (devices[i] != null && devices[i].enabled)
                 {
-                    running = true;
                     processingData[i] = new ContData();
                     Console.WriteLine("Plug " + i);
                     Plugin(i + 1);
                     int t = i;
                     workers[i] = new Thread(() =>
                     { ProcessData(t); });
+                    threadRunning[i] = true;
                     workers[i].Start();
                 }
             }
@@ -154,10 +167,15 @@ namespace XOutput
                 if (devices[i] != null && !directInput.IsDeviceAttached(devices[i].joystick.Information.InstanceGuid))
                 {
                     Console.WriteLine(devices[i].joystick.Properties.InstanceName + " Removed");
+                    if (IsActive && devices[i].enabled)
+                    {
+                        threadRunning[i] = false;
+                        workers[i].Join();
+                        workers[i] = null;
+                        if (!isPersistent)
+                            Unplug(i + 1);
+                    }
                     devices[i] = null;
-                    workers[i].Abort();
-                    workers[i] = null;
-                    Unplug(i + 1);
                 }
             }
 
@@ -205,14 +223,19 @@ namespace XOutput
                 joystick.Acquire();
 
                 devices[spot] = new ControllerDevice(joystick, spot + 1);
-                if (IsActive)
+                devices[spot].enabled = enabled[spot];
+                if (IsActive && devices[spot].enabled)
                 {
                     processingData[spot] = new ContData();
-                    Console.WriteLine("Plug " + spot);
-                    Plugin(spot + 1);
+                    if (!isPersistent)
+                    {
+                        Console.WriteLine("Plug " + spot);
+                        Plugin(spot + 1);
+                    }
                     int t = spot;
                     workers[spot] = new Thread(() =>
                     { ProcessData(t); });
+                    threadRunning[spot] = true;
                     workers[spot].Start();
                 }
             }
@@ -229,10 +252,11 @@ namespace XOutput
                     if (devices[i] != null && devices[i].enabled)
                     {
                         Console.WriteLine(i);
-                        workers[i].Abort();
+                        threadRunning[i] = false;
+                        workers[i].Join();
                         workers[i] = null;
-                        Unplug(i + 1);
                     }
+                    Unplug(i + 1);
                 }
 
             }
@@ -241,7 +265,7 @@ namespace XOutput
 
         public Boolean Plugin(Int32 Serial)
         {
-            if (IsActive)
+            if (IsActive && !plugged[Serial-1])
             {
                 Int32 Transfered = 0;
                 Byte[] Buffer = new Byte[16];
@@ -255,6 +279,7 @@ namespace XOutput
                 Buffer[5] = (Byte)((Serial >> 8) & 0xFF);
                 Buffer[6] = (Byte)((Serial >> 16) & 0xFF);
                 Buffer[7] = (Byte)((Serial >> 24) & 0xFF);
+                plugged[Serial - 1] = true;
 
                 return DeviceIoControl(m_FileHandle, 0x2A4000, Buffer, Buffer.Length, null, 0, ref Transfered, IntPtr.Zero);
             }
@@ -264,7 +289,7 @@ namespace XOutput
 
         public Boolean Unplug(Int32 Serial)
         {
-            if (IsActive)
+            if (IsActive && plugged[Serial-1])
             {
                 Int32 Transfered = 0;
                 Byte[] Buffer = new Byte[16];
@@ -278,7 +303,7 @@ namespace XOutput
                 Buffer[5] = (Byte)((Serial >> 8) & 0xFF);
                 Buffer[6] = (Byte)((Serial >> 16) & 0xFF);
                 Buffer[7] = (Byte)((Serial >> 24) & 0xFF);
-
+                plugged[Serial - 1] = false;
                 return DeviceIoControl(m_FileHandle, 0x2A4004, Buffer, Buffer.Length, null, 0, ref Transfered, IntPtr.Zero);
             }
 
@@ -287,7 +312,7 @@ namespace XOutput
 
         private void ProcessData(int n)
         {
-            while (IsActive)
+            while (IsActive && threadRunning[n])
             {
                 lock (ds4locks[n])
                 {
@@ -297,14 +322,14 @@ namespace XOutput
                         //continue;
                     }
                     byte[] data = devices[n].getoutput();
-                    if (data != null && devices[n].enabled)
+                    if (data != null && directInput.IsDeviceAttached(devices[n].joystick.Information.InstanceGuid))
                     {
 
                         data[0] = (byte)n;
                         Parse(data, processingData[n].parsedData);
                         Report(processingData[n].parsedData, processingData[n].output);
                     }
-                    Thread.Sleep(1);
+                    Thread.Sleep(5);
                 }
             }
         }
@@ -381,5 +406,9 @@ namespace XOutput
             }
         }
 
+        ~ControllerManager()
+        {
+            Stop();
+        }
     }
 }

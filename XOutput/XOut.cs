@@ -64,12 +64,13 @@ namespace XOutput
                     for (int i = 0; i < 4; i++)
                     {
                         checks[i].Enabled = false;
-                        isExclusive.Enabled = false;
                         foreach (Control con in boxes[i].Controls)
                         {
                             con.Enabled = false;
                         }
                     }
+                    isExclusive.Enabled = false;
+                    isPersistent.Enabled = false;
                 }
             }
             else
@@ -80,12 +81,13 @@ namespace XOutput
                     for (int i = 0; i < 4; i++)
                     {
                         checks[i].Enabled = true;
-                        isExclusive.Enabled = true;
                         foreach (Control con in boxes[i].Controls)
                         {
                             con.Enabled = true;
                         }
                     }
+                    isExclusive.Enabled = true;
+                    isPersistent.Enabled = true;
                 }
             }
         }
@@ -161,9 +163,13 @@ namespace XOutput
 
         private void isExclusive_CheckedChanged(object sender, EventArgs e)
         {
+            Console.WriteLine(isExclusive.Checked);
             controllerManager.changeExclusive(!controllerManager.isExclusive);
         }
 
-
+        private void isPersistent_CheckedChanged(object sender, EventArgs e)
+        {
+            controllerManager.changePersistent(!controllerManager.isPersistent);
+        }
     }
 }
