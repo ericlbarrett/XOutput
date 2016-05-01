@@ -163,7 +163,6 @@ namespace XOutput
 
         private void isExclusive_CheckedChanged(object sender, EventArgs e)
         {
-            Console.WriteLine(isExclusive.Checked);
             controllerManager.changeExclusive(!controllerManager.isExclusive);
         }
 
