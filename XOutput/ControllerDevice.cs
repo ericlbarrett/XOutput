@@ -131,7 +131,8 @@ namespace XOutput
         private void updateInput()
         {
             joystick.Poll();
-            JoystickState jState = joystick.GetCurrentState();
+            JoystickState jState;
+            jState = joystick.GetCurrentState();
             buttons = jState.GetButtons();
             dPads = jState.GetPointOfViewControllers();
             analogs = GetAxes(jState);
@@ -231,7 +232,6 @@ namespace XOutput
 
             return Report;
         }
-
 
     }
 }
