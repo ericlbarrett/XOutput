@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XOut));
             this.labelA = new System.Windows.Forms.Label();
             this.labelB = new System.Windows.Forms.Label();
             this.labelX = new System.Windows.Forms.Label();
@@ -37,21 +36,6 @@
             this.labelDown = new System.Windows.Forms.Label();
             this.labelLeft = new System.Windows.Forms.Label();
             this.labelRight = new System.Windows.Forms.Label();
-            this.dropRight = new XOutput.MultiLevelComboBox();
-            this.dropLeft = new XOutput.MultiLevelComboBox();
-            this.dropDown = new XOutput.MultiLevelComboBox();
-            this.dropUp = new XOutput.MultiLevelComboBox();
-            this.dropY = new XOutput.MultiLevelComboBox();
-            this.dropX = new XOutput.MultiLevelComboBox();
-            this.dropB = new XOutput.MultiLevelComboBox();
-            this.dropA = new XOutput.MultiLevelComboBox();
-            this.dropRT = new XOutput.MultiLevelComboBox();
-            this.dropLT = new XOutput.MultiLevelComboBox();
-            this.dropRB = new XOutput.MultiLevelComboBox();
-            this.dropLB = new XOutput.MultiLevelComboBox();
-            this.dropBack = new XOutput.MultiLevelComboBox();
-            this.dropStart = new XOutput.MultiLevelComboBox();
-            this.dropHome = new XOutput.MultiLevelComboBox();
             this.labelRT = new System.Windows.Forms.Label();
             this.labelLT = new System.Windows.Forms.Label();
             this.labelRB = new System.Windows.Forms.Label();
@@ -59,18 +43,39 @@
             this.labelBack = new System.Windows.Forms.Label();
             this.labelStart = new System.Windows.Forms.Label();
             this.labelHome = new System.Windows.Forms.Label();
-            this.dropRA = new XOutput.MultiLevelComboBox();
-            this.dropLA = new XOutput.MultiLevelComboBox();
-            this.dropRX = new XOutput.MultiLevelComboBox();
-            this.dropRY = new XOutput.MultiLevelComboBox();
-            this.dropLX = new XOutput.MultiLevelComboBox();
-            this.dropLY = new XOutput.MultiLevelComboBox();
             this.labelRA = new System.Windows.Forms.Label();
             this.labelLA = new System.Windows.Forms.Label();
             this.labelLX = new System.Windows.Forms.Label();
             this.labelRX = new System.Windows.Forms.Label();
             this.labelLY = new System.Windows.Forms.Label();
             this.labelRY = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericCompensation = new System.Windows.Forms.NumericUpDown();
+            this.dropA = new XOutput.MultiLevelComboBox();
+            this.dropB = new XOutput.MultiLevelComboBox();
+            this.dropX = new XOutput.MultiLevelComboBox();
+            this.dropY = new XOutput.MultiLevelComboBox();
+            this.dropUp = new XOutput.MultiLevelComboBox();
+            this.dropDown = new XOutput.MultiLevelComboBox();
+            this.dropLeft = new XOutput.MultiLevelComboBox();
+            this.dropRight = new XOutput.MultiLevelComboBox();
+            this.dropLT = new XOutput.MultiLevelComboBox();
+            this.dropRT = new XOutput.MultiLevelComboBox();
+            this.dropLB = new XOutput.MultiLevelComboBox();
+            this.dropRB = new XOutput.MultiLevelComboBox();
+            this.dropLA = new XOutput.MultiLevelComboBox();
+            this.dropRA = new XOutput.MultiLevelComboBox();
+            this.dropHome = new XOutput.MultiLevelComboBox();
+            this.dropStart = new XOutput.MultiLevelComboBox();
+            this.dropBack = new XOutput.MultiLevelComboBox();
+            this.dropLY = new XOutput.MultiLevelComboBox();
+            this.dropLX = new XOutput.MultiLevelComboBox();
+            this.dropRY = new XOutput.MultiLevelComboBox();
+            this.dropRX = new XOutput.MultiLevelComboBox();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCompensation)).BeginInit();
             this.SuspendLayout();
             // 
             // labelA
@@ -161,171 +166,6 @@
             this.labelRight.TabIndex = 17;
             this.labelRight.Text = "Right";
             // 
-            // dropRight
-            // 
-            this.dropRight.FormattingEnabled = true;
-            this.dropRight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropRight.Items.AddRange(new object[] {
-            ""});
-            this.dropRight.Location = new System.Drawing.Point(40, 440);
-            this.dropRight.Name = "dropRight";
-            this.dropRight.Size = new System.Drawing.Size(121, 21);
-            this.dropRight.TabIndex = 13;
-            // 
-            // dropLeft
-            // 
-            this.dropLeft.FormattingEnabled = true;
-            this.dropLeft.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropLeft.Items.AddRange(new object[] {
-            ""});
-            this.dropLeft.Location = new System.Drawing.Point(40, 390);
-            this.dropLeft.Name = "dropLeft";
-            this.dropLeft.Size = new System.Drawing.Size(121, 21);
-            this.dropLeft.TabIndex = 12;
-            // 
-            // dropDown
-            // 
-            this.dropDown.FormattingEnabled = true;
-            this.dropDown.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropDown.Items.AddRange(new object[] {
-            ""});
-            this.dropDown.Location = new System.Drawing.Point(40, 340);
-            this.dropDown.Name = "dropDown";
-            this.dropDown.Size = new System.Drawing.Size(121, 21);
-            this.dropDown.TabIndex = 11;
-            // 
-            // dropUp
-            // 
-            this.dropUp.FormattingEnabled = true;
-            this.dropUp.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropUp.Items.AddRange(new object[] {
-            ""});
-            this.dropUp.Location = new System.Drawing.Point(40, 290);
-            this.dropUp.Name = "dropUp";
-            this.dropUp.Size = new System.Drawing.Size(121, 21);
-            this.dropUp.TabIndex = 10;
-            // 
-            // dropY
-            // 
-            this.dropY.FormattingEnabled = true;
-            this.dropY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropY.Items.AddRange(new object[] {
-            ""});
-            this.dropY.Location = new System.Drawing.Point(482, 440);
-            this.dropY.Name = "dropY";
-            this.dropY.Size = new System.Drawing.Size(121, 21);
-            this.dropY.TabIndex = 6;
-            // 
-            // dropX
-            // 
-            this.dropX.FormattingEnabled = true;
-            this.dropX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropX.Items.AddRange(new object[] {
-            ""});
-            this.dropX.Location = new System.Drawing.Point(482, 390);
-            this.dropX.Name = "dropX";
-            this.dropX.Size = new System.Drawing.Size(121, 21);
-            this.dropX.TabIndex = 5;
-            // 
-            // dropB
-            // 
-            this.dropB.FormattingEnabled = true;
-            this.dropB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropB.Items.AddRange(new object[] {
-            ""});
-            this.dropB.Location = new System.Drawing.Point(482, 340);
-            this.dropB.Name = "dropB";
-            this.dropB.Size = new System.Drawing.Size(121, 21);
-            this.dropB.TabIndex = 4;
-            // 
-            // dropA
-            // 
-            this.dropA.FormattingEnabled = true;
-            this.dropA.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropA.Items.AddRange(new object[] {
-            ""});
-            this.dropA.Location = new System.Drawing.Point(482, 290);
-            this.dropA.Name = "dropA";
-            this.dropA.Size = new System.Drawing.Size(121, 21);
-            this.dropA.TabIndex = 3;
-            // 
-            // dropRT
-            // 
-            this.dropRT.FormattingEnabled = true;
-            this.dropRT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropRT.Items.AddRange(new object[] {
-            ""});
-            this.dropRT.Location = new System.Drawing.Point(482, 40);
-            this.dropRT.Name = "dropRT";
-            this.dropRT.Size = new System.Drawing.Size(121, 21);
-            this.dropRT.TabIndex = 18;
-            // 
-            // dropLT
-            // 
-            this.dropLT.FormattingEnabled = true;
-            this.dropLT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropLT.Items.AddRange(new object[] {
-            ""});
-            this.dropLT.Location = new System.Drawing.Point(40, 40);
-            this.dropLT.Name = "dropLT";
-            this.dropLT.Size = new System.Drawing.Size(121, 21);
-            this.dropLT.TabIndex = 19;
-            // 
-            // dropRB
-            // 
-            this.dropRB.FormattingEnabled = true;
-            this.dropRB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropRB.Items.AddRange(new object[] {
-            ""});
-            this.dropRB.Location = new System.Drawing.Point(482, 90);
-            this.dropRB.Name = "dropRB";
-            this.dropRB.Size = new System.Drawing.Size(121, 21);
-            this.dropRB.TabIndex = 20;
-            // 
-            // dropLB
-            // 
-            this.dropLB.FormattingEnabled = true;
-            this.dropLB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropLB.Items.AddRange(new object[] {
-            ""});
-            this.dropLB.Location = new System.Drawing.Point(40, 90);
-            this.dropLB.Name = "dropLB";
-            this.dropLB.Size = new System.Drawing.Size(121, 21);
-            this.dropLB.TabIndex = 21;
-            // 
-            // dropBack
-            // 
-            this.dropBack.FormattingEnabled = true;
-            this.dropBack.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropBack.Items.AddRange(new object[] {
-            ""});
-            this.dropBack.Location = new System.Drawing.Point(40, 490);
-            this.dropBack.Name = "dropBack";
-            this.dropBack.Size = new System.Drawing.Size(121, 21);
-            this.dropBack.TabIndex = 22;
-            // 
-            // dropStart
-            // 
-            this.dropStart.FormattingEnabled = true;
-            this.dropStart.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropStart.Items.AddRange(new object[] {
-            ""});
-            this.dropStart.Location = new System.Drawing.Point(482, 490);
-            this.dropStart.Name = "dropStart";
-            this.dropStart.Size = new System.Drawing.Size(121, 21);
-            this.dropStart.TabIndex = 23;
-            // 
-            // dropHome
-            // 
-            this.dropHome.FormattingEnabled = true;
-            this.dropHome.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropHome.Items.AddRange(new object[] {
-            ""});
-            this.dropHome.Location = new System.Drawing.Point(264, 490);
-            this.dropHome.Name = "dropHome";
-            this.dropHome.Size = new System.Drawing.Size(121, 21);
-            this.dropHome.TabIndex = 24;
-            // 
             // labelRT
             // 
             this.labelRT.AutoSize = true;
@@ -403,72 +243,6 @@
             this.labelHome.TabIndex = 31;
             this.labelHome.Text = "Home";
             // 
-            // dropRA
-            // 
-            this.dropRA.FormattingEnabled = true;
-            this.dropRA.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropRA.Items.AddRange(new object[] {
-            ""});
-            this.dropRA.Location = new System.Drawing.Point(482, 140);
-            this.dropRA.Name = "dropRA";
-            this.dropRA.Size = new System.Drawing.Size(121, 21);
-            this.dropRA.TabIndex = 32;
-            // 
-            // dropLA
-            // 
-            this.dropLA.FormattingEnabled = true;
-            this.dropLA.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropLA.Items.AddRange(new object[] {
-            ""});
-            this.dropLA.Location = new System.Drawing.Point(40, 140);
-            this.dropLA.Name = "dropLA";
-            this.dropLA.Size = new System.Drawing.Size(121, 21);
-            this.dropLA.TabIndex = 33;
-            // 
-            // dropRX
-            // 
-            this.dropRX.FormattingEnabled = true;
-            this.dropRX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropRX.Items.AddRange(new object[] {
-            ""});
-            this.dropRX.Location = new System.Drawing.Point(482, 190);
-            this.dropRX.Name = "dropRX";
-            this.dropRX.Size = new System.Drawing.Size(121, 21);
-            this.dropRX.TabIndex = 34;
-            // 
-            // dropRY
-            // 
-            this.dropRY.FormattingEnabled = true;
-            this.dropRY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropRY.Items.AddRange(new object[] {
-            ""});
-            this.dropRY.Location = new System.Drawing.Point(482, 240);
-            this.dropRY.Name = "dropRY";
-            this.dropRY.Size = new System.Drawing.Size(121, 21);
-            this.dropRY.TabIndex = 35;
-            // 
-            // dropLX
-            // 
-            this.dropLX.FormattingEnabled = true;
-            this.dropLX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropLX.Items.AddRange(new object[] {
-            ""});
-            this.dropLX.Location = new System.Drawing.Point(40, 190);
-            this.dropLX.Name = "dropLX";
-            this.dropLX.Size = new System.Drawing.Size(121, 21);
-            this.dropLX.TabIndex = 36;
-            // 
-            // dropLY
-            // 
-            this.dropLY.FormattingEnabled = true;
-            this.dropLY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dropLY.Items.AddRange(new object[] {
-            ""});
-            this.dropLY.Location = new System.Drawing.Point(40, 240);
-            this.dropLY.Name = "dropLY";
-            this.dropLY.Size = new System.Drawing.Size(121, 21);
-            this.dropLY.TabIndex = 37;
-            // 
             // labelRA
             // 
             this.labelRA.AutoSize = true;
@@ -535,11 +309,396 @@
             this.labelRY.TabIndex = 43;
             this.labelRY.Text = "Right Analog Y";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.numericCompensation);
+            this.groupBox1.Location = new System.Drawing.Point(20, 545);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(762, 81);
+            this.groupBox1.TabIndex = 45;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Optional";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 50);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(744, 13);
+            this.label3.TabIndex = 49;
+            this.label3.Text = "This value will be added/subtracted to/from the Raw value from Left Analog X (Eli" +
+    "minates initial deadzone in some games and can make for quicker steering)";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(123, 27);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(112, 20);
+            this.label2.TabIndex = 48;
+            this.label2.Text = "Compensation";
+            // 
+            // numericCompensation
+            // 
+            this.numericCompensation.ImeMode = System.Windows.Forms.ImeMode.Close;
+            this.numericCompensation.Location = new System.Drawing.Point(20, 27);
+            this.numericCompensation.Maximum = new decimal(new int[] {
+            70,
+            0,
+            0,
+            0});
+            this.numericCompensation.Name = "numericCompensation";
+            this.numericCompensation.ReadOnly = true;
+            this.numericCompensation.Size = new System.Drawing.Size(97, 20);
+            this.numericCompensation.TabIndex = 47;
+            this.numericCompensation.ValueChanged += new System.EventHandler(this.numericCompensation_ValueChanged);
+            // 
+            // dropA
+            // 
+            this.dropA.FormattingEnabled = true;
+            this.dropA.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropA.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropA.Location = new System.Drawing.Point(482, 290);
+            this.dropA.Name = "dropA";
+            this.dropA.Size = new System.Drawing.Size(121, 21);
+            this.dropA.TabIndex = 3;
+            // 
+            // dropB
+            // 
+            this.dropB.FormattingEnabled = true;
+            this.dropB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropB.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropB.Location = new System.Drawing.Point(482, 340);
+            this.dropB.Name = "dropB";
+            this.dropB.Size = new System.Drawing.Size(121, 21);
+            this.dropB.TabIndex = 4;
+            // 
+            // dropX
+            // 
+            this.dropX.FormattingEnabled = true;
+            this.dropX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropX.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropX.Location = new System.Drawing.Point(482, 390);
+            this.dropX.Name = "dropX";
+            this.dropX.Size = new System.Drawing.Size(121, 21);
+            this.dropX.TabIndex = 5;
+            // 
+            // dropY
+            // 
+            this.dropY.FormattingEnabled = true;
+            this.dropY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropY.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropY.Location = new System.Drawing.Point(482, 440);
+            this.dropY.Name = "dropY";
+            this.dropY.Size = new System.Drawing.Size(121, 21);
+            this.dropY.TabIndex = 6;
+            // 
+            // dropUp
+            // 
+            this.dropUp.FormattingEnabled = true;
+            this.dropUp.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropUp.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropUp.Location = new System.Drawing.Point(40, 290);
+            this.dropUp.Name = "dropUp";
+            this.dropUp.Size = new System.Drawing.Size(121, 21);
+            this.dropUp.TabIndex = 10;
+            // 
+            // dropDown
+            // 
+            this.dropDown.FormattingEnabled = true;
+            this.dropDown.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropDown.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropDown.Location = new System.Drawing.Point(40, 340);
+            this.dropDown.Name = "dropDown";
+            this.dropDown.Size = new System.Drawing.Size(121, 21);
+            this.dropDown.TabIndex = 11;
+            // 
+            // dropLeft
+            // 
+            this.dropLeft.FormattingEnabled = true;
+            this.dropLeft.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropLeft.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropLeft.Location = new System.Drawing.Point(40, 390);
+            this.dropLeft.Name = "dropLeft";
+            this.dropLeft.Size = new System.Drawing.Size(121, 21);
+            this.dropLeft.TabIndex = 12;
+            // 
+            // dropRight
+            // 
+            this.dropRight.FormattingEnabled = true;
+            this.dropRight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropRight.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropRight.Location = new System.Drawing.Point(40, 440);
+            this.dropRight.Name = "dropRight";
+            this.dropRight.Size = new System.Drawing.Size(121, 21);
+            this.dropRight.TabIndex = 13;
+            // 
+            // dropLT
+            // 
+            this.dropLT.FormattingEnabled = true;
+            this.dropLT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropLT.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropLT.Location = new System.Drawing.Point(40, 40);
+            this.dropLT.Name = "dropLT";
+            this.dropLT.Size = new System.Drawing.Size(121, 21);
+            this.dropLT.TabIndex = 19;
+            // 
+            // dropRT
+            // 
+            this.dropRT.FormattingEnabled = true;
+            this.dropRT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropRT.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropRT.Location = new System.Drawing.Point(482, 40);
+            this.dropRT.Name = "dropRT";
+            this.dropRT.Size = new System.Drawing.Size(121, 21);
+            this.dropRT.TabIndex = 18;
+            // 
+            // dropLB
+            // 
+            this.dropLB.FormattingEnabled = true;
+            this.dropLB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropLB.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropLB.Location = new System.Drawing.Point(40, 90);
+            this.dropLB.Name = "dropLB";
+            this.dropLB.Size = new System.Drawing.Size(121, 21);
+            this.dropLB.TabIndex = 21;
+            // 
+            // dropRB
+            // 
+            this.dropRB.FormattingEnabled = true;
+            this.dropRB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropRB.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropRB.Location = new System.Drawing.Point(482, 90);
+            this.dropRB.Name = "dropRB";
+            this.dropRB.Size = new System.Drawing.Size(121, 21);
+            this.dropRB.TabIndex = 20;
+            // 
+            // dropLA
+            // 
+            this.dropLA.FormattingEnabled = true;
+            this.dropLA.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropLA.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropLA.Location = new System.Drawing.Point(40, 140);
+            this.dropLA.Name = "dropLA";
+            this.dropLA.Size = new System.Drawing.Size(121, 21);
+            this.dropLA.TabIndex = 33;
+            // 
+            // dropRA
+            // 
+            this.dropRA.FormattingEnabled = true;
+            this.dropRA.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropRA.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropRA.Location = new System.Drawing.Point(482, 140);
+            this.dropRA.Name = "dropRA";
+            this.dropRA.Size = new System.Drawing.Size(121, 21);
+            this.dropRA.TabIndex = 32;
+            // 
+            // dropHome
+            // 
+            this.dropHome.FormattingEnabled = true;
+            this.dropHome.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropHome.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropHome.Location = new System.Drawing.Point(264, 490);
+            this.dropHome.Name = "dropHome";
+            this.dropHome.Size = new System.Drawing.Size(121, 21);
+            this.dropHome.TabIndex = 24;
+            // 
+            // dropStart
+            // 
+            this.dropStart.FormattingEnabled = true;
+            this.dropStart.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropStart.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropStart.Location = new System.Drawing.Point(482, 490);
+            this.dropStart.Name = "dropStart";
+            this.dropStart.Size = new System.Drawing.Size(121, 21);
+            this.dropStart.TabIndex = 23;
+            // 
+            // dropBack
+            // 
+            this.dropBack.FormattingEnabled = true;
+            this.dropBack.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropBack.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropBack.Location = new System.Drawing.Point(40, 490);
+            this.dropBack.Name = "dropBack";
+            this.dropBack.Size = new System.Drawing.Size(121, 21);
+            this.dropBack.TabIndex = 22;
+            // 
+            // dropLY
+            // 
+            this.dropLY.FormattingEnabled = true;
+            this.dropLY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropLY.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropLY.Location = new System.Drawing.Point(40, 240);
+            this.dropLY.Name = "dropLY";
+            this.dropLY.Size = new System.Drawing.Size(121, 21);
+            this.dropLY.TabIndex = 37;
+            // 
+            // dropLX
+            // 
+            this.dropLX.FormattingEnabled = true;
+            this.dropLX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropLX.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropLX.Location = new System.Drawing.Point(40, 190);
+            this.dropLX.Name = "dropLX";
+            this.dropLX.Size = new System.Drawing.Size(121, 21);
+            this.dropLX.TabIndex = 36;
+            // 
+            // dropRY
+            // 
+            this.dropRY.FormattingEnabled = true;
+            this.dropRY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropRY.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropRY.Location = new System.Drawing.Point(482, 240);
+            this.dropRY.Name = "dropRY";
+            this.dropRY.Size = new System.Drawing.Size(121, 21);
+            this.dropRY.TabIndex = 35;
+            // 
+            // dropRX
+            // 
+            this.dropRX.FormattingEnabled = true;
+            this.dropRX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dropRX.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""});
+            this.dropRX.Location = new System.Drawing.Point(482, 190);
+            this.dropRX.Name = "dropRX";
+            this.dropRX.Size = new System.Drawing.Size(121, 21);
+            this.dropRX.TabIndex = 34;
+            // 
             // ControllerOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(814, 561);
+            this.ClientSize = new System.Drawing.Size(814, 638);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelRY);
             this.Controls.Add(this.labelLY);
             this.Controls.Add(this.labelRX);
@@ -583,12 +742,14 @@
             this.Controls.Add(this.dropRY);
             this.Controls.Add(this.dropRX);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ControllerOptions";
             this.Text = "Controller Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.onClose);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCompensation)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -638,6 +799,9 @@
         private System.Windows.Forms.Label labelRX;
         private System.Windows.Forms.Label labelLY;
         private System.Windows.Forms.Label labelRY;
-
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numericCompensation;
     }
 }

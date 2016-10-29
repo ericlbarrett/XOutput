@@ -7,17 +7,17 @@ namespace XOutput
         static string[] properties = new string[] {"button_a", "button_b", "button_x", "button_y",
             "dpad_up", "dpad_down", "dpad_left", "dpad_right",
             "left_trigger", "right_trigger", "left_bumper", "right_bumper", "left_axebutton", "right_axebutton",
-            "home", "start", "back", "left_y", "left_x", "right_y", "right_x"};
+            "home", "start", "back", "left_y", "left_x", "right_y", "right_x", "compensation"};
         static private string dirName = @"configs";
 
-        private static byte[] parseLine(string line) { //This needs better error hadnling
+        private static byte[] parseLine(string line) { //This needs better error handling
             int i; //The index of the control in the map array
             byte type = 255, subType = 255, num = 255;
-            for (i = 0; i < 21; i++) { //find which button this is for
+            for (i = 0; i < 22; i++) { //find which button this is for
                 if (line.StartsWith(properties[i])) {
                     break;
                 }
-                if (i == 20) {
+                if (i > 20) {
                     Logger.Log("Error parsing: Could not identify property");
                     return new byte[] { 255, 255, 255};
                 }
@@ -27,6 +27,7 @@ namespace XOutput
                 return new byte[] { 255, 255, 255 };
             }
             string val = line.Remove(0, properties[i].Length + 1); //remove up to the = sign
+            int thisNumericValue = 0;
             if (val.StartsWith("btn")) {
                 type = 0;
                 subType = 0;
@@ -63,6 +64,9 @@ namespace XOutput
                     num = byte.Parse(val.Remove(val.Length - 5));
                 }
             } else if (val == "disabled") {
+            } else if(int.TryParse(val, out thisNumericValue)){
+                subType = 253;
+                num = (byte)(thisNumericValue + 1);
             } else {
                 Logger.Log("Error parsing: Could not identify value");
                 return new byte[] { 255, 255, 255 };
@@ -82,12 +86,12 @@ namespace XOutput
                 File.Create(path);
                 return null;
             }
-            byte[] mapping = new byte[42];
+            byte[] mapping = new byte[44];
             string[] config = File.ReadAllLines(path);
             for (int i = 0; i < config.Length; i++) {
                 byte[] data = parseLine(config[i]);
                 Console.Write(data[0]);
-                if (data[0] > 40) {
+                if (data[0] > 42) {
                     continue;
                 }
                 mapping[data[0]] = data[1];
@@ -113,10 +117,14 @@ namespace XOutput
             string[] dpadString = new string[] { "up", "down", "left", "right" };
 
             string saveString = "";
-            for (int i = 0; i < 21; i++) {
+            for (int i = 0; i < 22; i++) {
                 saveString += properties[i] + "=";
                 if (Mapping[i * 2] == 255) {
                     saveString += "disabled\r\n";
+                    continue;
+                }else if (Mapping[i * 2] == 253)
+                {
+                    saveString += ((byte)Mapping[i * 2 + 1]).ToString() + "\r\n";
                     continue;
                 }
                 byte subType = (byte)(Mapping[i * 2] & 0x0F);

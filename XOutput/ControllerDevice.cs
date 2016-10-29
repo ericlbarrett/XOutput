@@ -19,10 +19,10 @@ namespace XOutput
         public bool enabled = true;
 
         public OutputState cOutput;
-        public byte[] mapping = new byte[42];
+        public byte[] mapping = new byte[44];
         bool[] buttons;
         int[] dPads;
-        int[] analogs;
+        public int[] analogs;
 
 
         delegate byte input(byte subType, byte num);
@@ -33,7 +33,14 @@ namespace XOutput
             deviceNumber = num;
             name = joystick.Information.InstanceName;
             cOutput = new OutputState();
-            for (int i = 0; i < 42; i++)
+
+            joystick.Poll();
+            JoystickState jState = joystick.GetCurrentState();
+            buttons = jState.GetButtons();
+            dPads = jState.GetPointOfViewControllers();
+            analogs = GetAxes(jState);
+
+            for (int i = 0; i < mapping.Length; i++)
             {
                 mapping[i] = 255; //Changed default mapping to blank
             }
@@ -141,10 +148,10 @@ namespace XOutput
             input funcDPad = DPad;
             input[] funcArray = new input[] { funcButton, funcAnalog, funcDPad };
 
-            byte[] output = new byte[21];
-            for (int i = 0; i < 21; i++)
+            byte[] output = new byte[22];
+            for (int i = 0; i < 22; i++)
             {
-                if (mapping[i * 2] == 255)
+                if (mapping[i * 2] == 255 || mapping[i * 2] == 253)
                 {
                     continue;
                 }
@@ -214,7 +221,6 @@ namespace XOutput
             //Guide
             Report[12] = (byte)(cOutput.Home ? 0xFF : 0x00);
 
-
             Report[14] = cOutput.LX; //Left Stick X
 
 
@@ -231,7 +237,5 @@ namespace XOutput
 
             return Report;
         }
-
-
     }
 }
