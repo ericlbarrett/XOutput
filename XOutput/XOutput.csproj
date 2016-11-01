@@ -157,6 +157,7 @@
     <None Include="Resources\gear.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\xbox360controller.png" />
     <Content Include="XOutput_Icon.ico" />
   </ItemGroup>
   <ItemGroup>

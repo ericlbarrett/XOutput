@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace XOutput
 {
@@ -81,7 +82,8 @@ namespace XOutput
                 Directory.CreateDirectory(dirName);
                 return null;
             }
-            string path = dirName + "\\" + devName + ".ini";
+
+            string path = dirName + "\\" + removeInvalidFileNameChars(devName) + ".ini";
             if (!File.Exists(path)) {
                 File.Create(path);
                 return null;
@@ -104,11 +106,23 @@ namespace XOutput
             if (!Directory.Exists(dirName)) {
                 Directory.CreateDirectory(dirName);
             }
-            string path = dirName + "\\" + devName + ".ini";
+
+            string path = dirName + "\\" + removeInvalidFileNameChars(devName) + ".ini";
             if (!File.Exists(path)) {
                 File.Create(path);
             }
             File.WriteAllText(path, generateSaveString(mapping));
+        }
+
+        private static string removeInvalidFileNameChars(string proposedFileName)
+        {
+            var invalidChars = Path.GetInvalidFileNameChars();
+
+            string invalidCharsRemoved = new string(proposedFileName
+              .Where(x => !invalidChars.Contains(x))
+              .ToArray());
+
+            return invalidCharsRemoved;
         }
 
         private static string generateSaveString(byte[] Mapping) {
