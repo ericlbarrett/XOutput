@@ -100,6 +100,9 @@
     <Compile Include="XOut.Designer.cs">
       <DependentUpon>XOut.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ControllerOptions.resx">
+      <DependentUpon>ControllerOptions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -112,6 +115,7 @@
     </Compile>
     <EmbeddedResource Include="XOut.resx">
       <DependentUpon>XOut.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -153,6 +157,7 @@
     <None Include="Resources\gear.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\xbox360controller.png" />
     <Content Include="XOutput_Icon.ico" />
   </ItemGroup>
   <ItemGroup>

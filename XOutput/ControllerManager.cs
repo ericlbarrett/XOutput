@@ -25,6 +25,7 @@ namespace XOutput
         private Control handle;
         public bool isExclusive = false;
 
+        protected int compensationValue = 0;
 
         private object[] ds4locks = new object[4];
 
@@ -68,7 +69,6 @@ namespace XOutput
         public ControllerDevice getController(int n)
         {
             return devices[n];
-
         }
 
         public void Swap(int i, int p)
@@ -94,6 +94,11 @@ namespace XOutput
 
         private Int32 Scale(Int32 Value, Boolean Flip)
         {
+            if (Value == 0)
+            {
+                return Value;
+            }
+
             Value -= 0x80;
 
             if (Value == -128) Value = -127;
@@ -133,6 +138,9 @@ namespace XOutput
             {
                 if (devices[i] != null && devices[i].enabled)
                 {
+                    //Need to figure this out for multiple controllers...
+                    compensationValue = devices[i].mapping[devices[i].mapping.Length - 1];
+
                     running = true;
                     processingData[i] = new ContData();
                     Console.WriteLine("Plug " + i);
@@ -299,7 +307,6 @@ namespace XOutput
                     byte[] data = devices[n].getoutput();
                     if (data != null && devices[n].enabled)
                     {
-
                         data[0] = (byte)n;
                         Parse(data, processingData[n].parsedData);
                         Report(processingData[n].parsedData, processingData[n].output);
@@ -362,7 +369,7 @@ namespace XOutput
                 Output[12] = Input[26]; // Left Trigger
                 Output[13] = Input[27]; // Right Trigger
 
-                Int32 ThumbLX = Scale(Input[14], false);
+                Int32 ThumbLX = Scale(CorrectDeadZone(Input[14], 127, compensationValue), false);
                 Int32 ThumbLY = -Scale(Input[15], false);
                 Int32 ThumbRX = Scale(Input[16], false);
                 Int32 ThumbRY = -Scale(Input[17], false);
@@ -380,6 +387,35 @@ namespace XOutput
                 Output[21] = (Byte)((ThumbRY >> 8) & 0xFF);
             }
         }
+        private int CorrectDeadZone(int input, int centerPoint, int deadZoneCompensation)
+        {
+            int returnVal = input;
 
+            if (deadZoneCompensation > 0)
+            {
+                if (input > centerPoint)
+                {
+                    //Steering Right
+                    returnVal += deadZoneCompensation;
+                }
+                else if (input < centerPoint)
+                {
+                    //Steering Left
+                    returnVal -= deadZoneCompensation;
+                }
+
+                //Full Lock
+                if (returnVal > 255)
+                {
+                    returnVal = 255;
+                }
+                else if (returnVal < 1)
+                {
+                    returnVal = 1;
+                }
+            }
+
+            return returnVal;
+        }
     }
 }

@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("XOutput")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Base by Eric Barrett, Tweaked by API (All via GitHub)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Eric Barrett")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("XOutput")]
 [assembly: AssemblyCopyright("Copyright © Eric Barrett 2014")]
 [assembly: AssemblyTrademark("")]
