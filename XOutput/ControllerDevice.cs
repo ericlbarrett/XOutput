@@ -142,6 +142,12 @@ namespace XOutput
             input[] funcArray = new input[] { funcButton, funcAnalog, funcDPad };
 
             byte[] output = new byte[21];
+            // Everything should be initialized to 0, except for the Sticks, which should be centered
+            output[17] = 127;
+            output[18] = 127;
+            output[19] = 127;
+            output[20] = 127;
+
             for (int i = 0; i < 21; i++)
             {
                 if (mapping[i * 2] == 255)
