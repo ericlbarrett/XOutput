@@ -4,29 +4,36 @@ using System.IO;
 namespace XOutput
 {
     static class SaveManager {
-        static string[] properties = new string[] {"button_a", "button_b", "button_x", "button_y",
+        public static string[] Properties = new string[] {
+            "button_a", "button_b", "button_x", "button_y",
             "dpad_up", "dpad_down", "dpad_left", "dpad_right",
             "left_trigger", "right_trigger", "left_bumper", "right_bumper", "left_axebutton", "right_axebutton",
-            "home", "start", "back", "left_y", "left_x", "right_y", "right_x"};
+            "home", "start", "back", "left_y", "left_x", "right_y", "right_x",
+            "deadzone_left", "deadzone_right"};
         static private string dirName = @"configs";
+
+        public static int MappingSize {
+            get { return Properties.Length * 2; }
+            private set { }
+        }
 
         private static byte[] parseLine(string line) { //This needs better error hadnling
             int i; //The index of the control in the map array
             byte type = 255, subType = 255, num = 255;
-            for (i = 0; i < 21; i++) { //find which button this is for
-                if (line.StartsWith(properties[i])) {
+            for (i = 0; i < Properties.Length; i++) { //find which button this is for
+                if (line.StartsWith(Properties[i])) {
                     break;
                 }
-                if (i == 20) {
+                if (i == Properties.Length) {
                     Logger.Log("Error parsing: Could not identify property");
                     return new byte[] { 255, 255, 255};
                 }
             }
-            if (properties[i].Length + 1 > line.Length) {
+            if (Properties[i].Length + 1 > line.Length) {
                 Logger.Log("Error parsing: No assignment");
                 return new byte[] { 255, 255, 255 };
             }
-            string val = line.Remove(0, properties[i].Length + 1); //remove up to the = sign
+            string val = line.Remove(0, Properties[i].Length + 1); //remove up to the = sign
             if (val.StartsWith("btn")) {
                 type = 0;
                 subType = 0;
@@ -82,12 +89,12 @@ namespace XOutput
                 File.Create(path);
                 return null;
             }
-            byte[] mapping = new byte[42];
+            byte[] mapping = new byte[MappingSize];
             string[] config = File.ReadAllLines(path);
             for (int i = 0; i < config.Length; i++) {
                 byte[] data = parseLine(config[i]);
                 Console.Write(data[0]);
-                if (data[0] > 40) {
+                if (data[0] > 44) {
                     continue;
                 }
                 mapping[data[0]] = data[1];
@@ -113,8 +120,8 @@ namespace XOutput
             string[] dpadString = new string[] { "up", "down", "left", "right" };
 
             string saveString = "";
-            for (int i = 0; i < 21; i++) {
-                saveString += properties[i] + "=";
+            for (int i = 0; i < Properties.Length; i++) {
+                saveString += Properties[i] + "=";
                 if (Mapping[i * 2] == 255) {
                     saveString += "disabled\r\n";
                     continue;

@@ -3,7 +3,6 @@ using SlimDX.DirectInput;
 
 namespace XOutput
 {
-
     public struct OutputState
     {
         public byte LX, LY, RX, RY, L2, R2;
@@ -11,15 +10,16 @@ namespace XOutput
         public bool DpadUp, DpadRight, DpadDown, DpadLeft;
     }
 
-    public class ControllerDevice
-    {
+    public class ControllerDevice {
+        public const byte JOYSTICK_CENTER = 127;
+
         public Joystick joystick;
         int deviceNumber;
         public string name;
         public bool enabled = true;
 
         public OutputState cOutput;
-        public byte[] mapping = new byte[42];
+        public byte[] mapping = new byte[SaveManager.MappingSize];
         bool[] buttons;
         int[] dPads;
         int[] analogs;
@@ -143,10 +143,10 @@ namespace XOutput
 
             byte[] output = new byte[21];
             // Everything should be initialized to 0, except for the Sticks, which should be centered
-            output[17] = 127;
-            output[18] = 127;
-            output[19] = 127;
-            output[20] = 127;
+            output[17] = JOYSTICK_CENTER;
+            output[18] = JOYSTICK_CENTER;
+            output[19] = JOYSTICK_CENTER;
+            output[20] = JOYSTICK_CENTER;
 
             for (int i = 0; i < 21; i++)
             {
@@ -183,13 +183,19 @@ namespace XOutput
             cOutput.Start = output[15] != 0;
             cOutput.Back = output[16] != 0;
 
-            cOutput.LY = output[17];
-            cOutput.LX = output[18];
-            cOutput.RY = output[19];
-            cOutput.RX = output[20];
-            
-        }
 
+            cOutput.LY = getDeadzonedJoystickAxis(output[17], mapping[43]);
+            cOutput.LX = getDeadzonedJoystickAxis(output[18], mapping[43]);
+            cOutput.RY = getDeadzonedJoystickAxis(output[19], mapping[45]);
+            cOutput.RX = getDeadzonedJoystickAxis(output[20], mapping[45]);
+
+        }
+        private byte getDeadzonedJoystickAxis(byte position, byte deadZone) {
+            if (position < JOYSTICK_CENTER - deadZone || position > JOYSTICK_CENTER + deadZone) {
+                return position;
+            }
+            return JOYSTICK_CENTER;
+        }
 
         public byte[] getoutput()
         {
