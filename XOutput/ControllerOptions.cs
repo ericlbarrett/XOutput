@@ -58,6 +58,10 @@ namespace XOutput
                 m.SelectionChangeCommitted += new System.EventHandler(SelectionChanged);
                 ind++;
             }
+            trackDeadzoneLeft.Value = dev.mapping[43];
+            textDeadzoneLeft.Text = dev.mapping[43].ToString();
+            trackDeadzoneRight.Value = dev.mapping[45];
+            textDeadzoneRight.Text = dev.mapping[45].ToString();
         }
 
         private string getBindingText(int i)
@@ -90,5 +94,47 @@ namespace XOutput
             dev.Save();
         }
 
+        private void textDeadzoneLeft_TextChanged(object sender, EventArgs e) {
+            int deadZone;
+            if (!int.TryParse(textDeadzoneLeft.Text, out deadZone)) {
+                deadZone = 0;
+                textDeadzoneLeft.Text = "0";
+            } else if (deadZone < 0) {
+                deadZone = 0;
+                textDeadzoneLeft.Text = "0";
+            } else if (deadZone > 127) {
+                deadZone = 127;
+                textDeadzoneLeft.Text = "127";
+            }
+            trackDeadzoneLeft.Value = deadZone;
+            dev.mapping[43] = (byte)deadZone;
+
+        }
+
+        private void textDeadzoneRight_TextChanged(object sender, EventArgs e) {
+            int deadZone;
+            if (!int.TryParse(textDeadzoneRight.Text, out deadZone)) {
+                deadZone = 0;
+                textDeadzoneRight.Text = "0";
+            } else if (deadZone < 0) {
+                deadZone = 0;
+                textDeadzoneRight.Text = "0";
+            } else if (deadZone > 127) {
+                deadZone = 127;
+                textDeadzoneRight.Text = "127";
+            }
+            trackDeadzoneRight.Value = deadZone;
+            dev.mapping[45] = (byte)deadZone;
+        }
+
+        private void trackDeadzoneLeft_Scroll(object sender, EventArgs e) {
+            textDeadzoneLeft.Text = trackDeadzoneLeft.Value.ToString();
+            dev.mapping[43] = (byte)trackDeadzoneLeft.Value;
+        }
+
+        private void trackDeadzoneRight_Scroll(object sender, EventArgs e) {
+            textDeadzoneRight.Text = trackDeadzoneRight.Value.ToString();
+            dev.mapping[45] = (byte)trackDeadzoneRight.Value;
+        }
     }
 }

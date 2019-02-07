@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XOut));
             this.labelA = new System.Windows.Forms.Label();
             this.labelB = new System.Windows.Forms.Label();
             this.labelX = new System.Windows.Forms.Label();
@@ -71,6 +70,13 @@
             this.labelRX = new System.Windows.Forms.Label();
             this.labelLY = new System.Windows.Forms.Label();
             this.labelRY = new System.Windows.Forms.Label();
+            this.trackDeadzoneLeft = new System.Windows.Forms.TrackBar();
+            this.labelDeadzones = new System.Windows.Forms.Label();
+            this.textDeadzoneLeft = new System.Windows.Forms.TextBox();
+            this.textDeadzoneRight = new System.Windows.Forms.TextBox();
+            this.trackDeadzoneRight = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDeadzoneLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDeadzoneRight)).BeginInit();
             this.SuspendLayout();
             // 
             // labelA
@@ -78,7 +84,7 @@
             this.labelA.AutoSize = true;
             this.labelA.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelA.Location = new System.Drawing.Point(609, 290);
+            this.labelA.Location = new System.Drawing.Point(609, 318);
             this.labelA.Name = "labelA";
             this.labelA.Size = new System.Drawing.Size(20, 20);
             this.labelA.TabIndex = 0;
@@ -89,7 +95,7 @@
             this.labelB.AutoSize = true;
             this.labelB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelB.Location = new System.Drawing.Point(609, 340);
+            this.labelB.Location = new System.Drawing.Point(609, 368);
             this.labelB.Name = "labelB";
             this.labelB.Size = new System.Drawing.Size(20, 20);
             this.labelB.TabIndex = 7;
@@ -100,7 +106,7 @@
             this.labelX.AutoSize = true;
             this.labelX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelX.Location = new System.Drawing.Point(609, 390);
+            this.labelX.Location = new System.Drawing.Point(609, 418);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(20, 20);
             this.labelX.TabIndex = 8;
@@ -111,7 +117,7 @@
             this.labelY.AutoSize = true;
             this.labelY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelY.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelY.Location = new System.Drawing.Point(609, 440);
+            this.labelY.Location = new System.Drawing.Point(609, 468);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(20, 20);
             this.labelY.TabIndex = 9;
@@ -122,7 +128,7 @@
             this.labelUp.AutoSize = true;
             this.labelUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUp.Location = new System.Drawing.Point(167, 290);
+            this.labelUp.Location = new System.Drawing.Point(167, 318);
             this.labelUp.Name = "labelUp";
             this.labelUp.Size = new System.Drawing.Size(30, 20);
             this.labelUp.TabIndex = 14;
@@ -133,7 +139,7 @@
             this.labelDown.AutoSize = true;
             this.labelDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDown.Location = new System.Drawing.Point(167, 340);
+            this.labelDown.Location = new System.Drawing.Point(167, 368);
             this.labelDown.Name = "labelDown";
             this.labelDown.Size = new System.Drawing.Size(50, 20);
             this.labelDown.TabIndex = 15;
@@ -144,7 +150,7 @@
             this.labelLeft.AutoSize = true;
             this.labelLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLeft.Location = new System.Drawing.Point(167, 390);
+            this.labelLeft.Location = new System.Drawing.Point(167, 418);
             this.labelLeft.Name = "labelLeft";
             this.labelLeft.Size = new System.Drawing.Size(37, 20);
             this.labelLeft.TabIndex = 16;
@@ -155,7 +161,7 @@
             this.labelRight.AutoSize = true;
             this.labelRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelRight.Location = new System.Drawing.Point(167, 440);
+            this.labelRight.Location = new System.Drawing.Point(167, 468);
             this.labelRight.Name = "labelRight";
             this.labelRight.Size = new System.Drawing.Size(47, 20);
             this.labelRight.TabIndex = 17;
@@ -166,8 +172,14 @@
             this.dropRight.FormattingEnabled = true;
             this.dropRight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropRight.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
-            this.dropRight.Location = new System.Drawing.Point(40, 440);
+            this.dropRight.Location = new System.Drawing.Point(40, 468);
             this.dropRight.Name = "dropRight";
             this.dropRight.Size = new System.Drawing.Size(121, 21);
             this.dropRight.TabIndex = 13;
@@ -177,8 +189,14 @@
             this.dropLeft.FormattingEnabled = true;
             this.dropLeft.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropLeft.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
-            this.dropLeft.Location = new System.Drawing.Point(40, 390);
+            this.dropLeft.Location = new System.Drawing.Point(40, 418);
             this.dropLeft.Name = "dropLeft";
             this.dropLeft.Size = new System.Drawing.Size(121, 21);
             this.dropLeft.TabIndex = 12;
@@ -188,8 +206,14 @@
             this.dropDown.FormattingEnabled = true;
             this.dropDown.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropDown.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
-            this.dropDown.Location = new System.Drawing.Point(40, 340);
+            this.dropDown.Location = new System.Drawing.Point(40, 368);
             this.dropDown.Name = "dropDown";
             this.dropDown.Size = new System.Drawing.Size(121, 21);
             this.dropDown.TabIndex = 11;
@@ -199,8 +223,14 @@
             this.dropUp.FormattingEnabled = true;
             this.dropUp.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropUp.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
-            this.dropUp.Location = new System.Drawing.Point(40, 290);
+            this.dropUp.Location = new System.Drawing.Point(40, 318);
             this.dropUp.Name = "dropUp";
             this.dropUp.Size = new System.Drawing.Size(121, 21);
             this.dropUp.TabIndex = 10;
@@ -210,8 +240,14 @@
             this.dropY.FormattingEnabled = true;
             this.dropY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropY.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
-            this.dropY.Location = new System.Drawing.Point(482, 440);
+            this.dropY.Location = new System.Drawing.Point(482, 468);
             this.dropY.Name = "dropY";
             this.dropY.Size = new System.Drawing.Size(121, 21);
             this.dropY.TabIndex = 6;
@@ -221,8 +257,14 @@
             this.dropX.FormattingEnabled = true;
             this.dropX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropX.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
-            this.dropX.Location = new System.Drawing.Point(482, 390);
+            this.dropX.Location = new System.Drawing.Point(482, 418);
             this.dropX.Name = "dropX";
             this.dropX.Size = new System.Drawing.Size(121, 21);
             this.dropX.TabIndex = 5;
@@ -232,8 +274,14 @@
             this.dropB.FormattingEnabled = true;
             this.dropB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropB.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
-            this.dropB.Location = new System.Drawing.Point(482, 340);
+            this.dropB.Location = new System.Drawing.Point(482, 368);
             this.dropB.Name = "dropB";
             this.dropB.Size = new System.Drawing.Size(121, 21);
             this.dropB.TabIndex = 4;
@@ -243,8 +291,14 @@
             this.dropA.FormattingEnabled = true;
             this.dropA.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropA.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
-            this.dropA.Location = new System.Drawing.Point(482, 290);
+            this.dropA.Location = new System.Drawing.Point(482, 318);
             this.dropA.Name = "dropA";
             this.dropA.Size = new System.Drawing.Size(121, 21);
             this.dropA.TabIndex = 3;
@@ -254,6 +308,12 @@
             this.dropRT.FormattingEnabled = true;
             this.dropRT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropRT.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
             this.dropRT.Location = new System.Drawing.Point(482, 40);
             this.dropRT.Name = "dropRT";
@@ -265,6 +325,12 @@
             this.dropLT.FormattingEnabled = true;
             this.dropLT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropLT.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
             this.dropLT.Location = new System.Drawing.Point(40, 40);
             this.dropLT.Name = "dropLT";
@@ -276,6 +342,12 @@
             this.dropRB.FormattingEnabled = true;
             this.dropRB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropRB.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
             this.dropRB.Location = new System.Drawing.Point(482, 90);
             this.dropRB.Name = "dropRB";
@@ -287,6 +359,12 @@
             this.dropLB.FormattingEnabled = true;
             this.dropLB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropLB.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
             this.dropLB.Location = new System.Drawing.Point(40, 90);
             this.dropLB.Name = "dropLB";
@@ -298,8 +376,14 @@
             this.dropBack.FormattingEnabled = true;
             this.dropBack.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropBack.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
-            this.dropBack.Location = new System.Drawing.Point(40, 490);
+            this.dropBack.Location = new System.Drawing.Point(40, 518);
             this.dropBack.Name = "dropBack";
             this.dropBack.Size = new System.Drawing.Size(121, 21);
             this.dropBack.TabIndex = 22;
@@ -309,8 +393,14 @@
             this.dropStart.FormattingEnabled = true;
             this.dropStart.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropStart.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
-            this.dropStart.Location = new System.Drawing.Point(482, 490);
+            this.dropStart.Location = new System.Drawing.Point(482, 518);
             this.dropStart.Name = "dropStart";
             this.dropStart.Size = new System.Drawing.Size(121, 21);
             this.dropStart.TabIndex = 23;
@@ -320,8 +410,14 @@
             this.dropHome.FormattingEnabled = true;
             this.dropHome.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropHome.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
-            this.dropHome.Location = new System.Drawing.Point(264, 490);
+            this.dropHome.Location = new System.Drawing.Point(264, 518);
             this.dropHome.Name = "dropHome";
             this.dropHome.Size = new System.Drawing.Size(121, 21);
             this.dropHome.TabIndex = 24;
@@ -375,7 +471,7 @@
             this.labelBack.AutoSize = true;
             this.labelBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBack.Location = new System.Drawing.Point(167, 490);
+            this.labelBack.Location = new System.Drawing.Point(167, 518);
             this.labelBack.Name = "labelBack";
             this.labelBack.Size = new System.Drawing.Size(45, 20);
             this.labelBack.TabIndex = 29;
@@ -386,7 +482,7 @@
             this.labelStart.AutoSize = true;
             this.labelStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStart.Location = new System.Drawing.Point(609, 490);
+            this.labelStart.Location = new System.Drawing.Point(609, 518);
             this.labelStart.Name = "labelStart";
             this.labelStart.Size = new System.Drawing.Size(44, 20);
             this.labelStart.TabIndex = 30;
@@ -397,7 +493,7 @@
             this.labelHome.AutoSize = true;
             this.labelHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelHome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHome.Location = new System.Drawing.Point(391, 490);
+            this.labelHome.Location = new System.Drawing.Point(391, 518);
             this.labelHome.Name = "labelHome";
             this.labelHome.Size = new System.Drawing.Size(52, 20);
             this.labelHome.TabIndex = 31;
@@ -408,6 +504,12 @@
             this.dropRA.FormattingEnabled = true;
             this.dropRA.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropRA.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
             this.dropRA.Location = new System.Drawing.Point(482, 140);
             this.dropRA.Name = "dropRA";
@@ -419,6 +521,12 @@
             this.dropLA.FormattingEnabled = true;
             this.dropLA.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropLA.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
             this.dropLA.Location = new System.Drawing.Point(40, 140);
             this.dropLA.Name = "dropLA";
@@ -430,6 +538,12 @@
             this.dropRX.FormattingEnabled = true;
             this.dropRX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropRX.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
             this.dropRX.Location = new System.Drawing.Point(482, 190);
             this.dropRX.Name = "dropRX";
@@ -441,6 +555,12 @@
             this.dropRY.FormattingEnabled = true;
             this.dropRY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropRY.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
             this.dropRY.Location = new System.Drawing.Point(482, 240);
             this.dropRY.Name = "dropRY";
@@ -452,6 +572,12 @@
             this.dropLX.FormattingEnabled = true;
             this.dropLX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropLX.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
             this.dropLX.Location = new System.Drawing.Point(40, 190);
             this.dropLX.Name = "dropLX";
@@ -463,6 +589,12 @@
             this.dropLY.FormattingEnabled = true;
             this.dropLY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropLY.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""});
             this.dropLY.Location = new System.Drawing.Point(40, 240);
             this.dropLY.Name = "dropLY";
@@ -535,11 +667,67 @@
             this.labelRY.TabIndex = 43;
             this.labelRY.Text = "Right Analog Y";
             // 
+            // trackDeadzoneLeft
+            // 
+            this.trackDeadzoneLeft.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.trackDeadzoneLeft.LargeChange = 10;
+            this.trackDeadzoneLeft.Location = new System.Drawing.Point(167, 270);
+            this.trackDeadzoneLeft.Maximum = 127;
+            this.trackDeadzoneLeft.Name = "trackDeadzoneLeft";
+            this.trackDeadzoneLeft.Size = new System.Drawing.Size(182, 45);
+            this.trackDeadzoneLeft.TabIndex = 44;
+            this.trackDeadzoneLeft.TickFrequency = 10;
+            this.trackDeadzoneLeft.Scroll += new System.EventHandler(this.trackDeadzoneLeft_Scroll);
+            // 
+            // labelDeadzones
+            // 
+            this.labelDeadzones.AutoSize = true;
+            this.labelDeadzones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.labelDeadzones.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDeadzones.Location = new System.Drawing.Point(385, 278);
+            this.labelDeadzones.Name = "labelDeadzones";
+            this.labelDeadzones.Size = new System.Drawing.Size(91, 20);
+            this.labelDeadzones.TabIndex = 45;
+            this.labelDeadzones.Text = "Deadzones";
+            // 
+            // textDeadzoneLeft
+            // 
+            this.textDeadzoneLeft.Location = new System.Drawing.Point(40, 278);
+            this.textDeadzoneLeft.Name = "textDeadzoneLeft";
+            this.textDeadzoneLeft.Size = new System.Drawing.Size(121, 20);
+            this.textDeadzoneLeft.TabIndex = 46;
+            this.textDeadzoneLeft.TextChanged += new System.EventHandler(this.textDeadzoneLeft_TextChanged);
+            // 
+            // textDeadzoneRight
+            // 
+            this.textDeadzoneRight.Location = new System.Drawing.Point(482, 280);
+            this.textDeadzoneRight.Name = "textDeadzoneRight";
+            this.textDeadzoneRight.Size = new System.Drawing.Size(121, 20);
+            this.textDeadzoneRight.TabIndex = 49;
+            this.textDeadzoneRight.TextChanged += new System.EventHandler(this.textDeadzoneRight_TextChanged);
+            // 
+            // trackDeadzoneRight
+            // 
+            this.trackDeadzoneRight.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.trackDeadzoneRight.LargeChange = 10;
+            this.trackDeadzoneRight.Location = new System.Drawing.Point(613, 270);
+            this.trackDeadzoneRight.Maximum = 127;
+            this.trackDeadzoneRight.Name = "trackDeadzoneRight";
+            this.trackDeadzoneRight.Size = new System.Drawing.Size(189, 45);
+            this.trackDeadzoneRight.TabIndex = 47;
+            this.trackDeadzoneRight.TickFrequency = 10;
+            this.trackDeadzoneRight.Scroll += new System.EventHandler(this.trackDeadzoneRight_Scroll);
+            // 
             // ControllerOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(814, 561);
+            this.ClientSize = new System.Drawing.Size(814, 580);
+            this.Controls.Add(this.textDeadzoneRight);
+            this.Controls.Add(this.trackDeadzoneRight);
+            this.Controls.Add(this.textDeadzoneLeft);
+            this.Controls.Add(this.labelDeadzones);
+            this.Controls.Add(this.trackDeadzoneLeft);
             this.Controls.Add(this.labelRY);
             this.Controls.Add(this.labelLY);
             this.Controls.Add(this.labelRX);
@@ -583,12 +771,13 @@
             this.Controls.Add(this.dropRY);
             this.Controls.Add(this.dropRX);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ControllerOptions";
             this.Text = "Controller Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.onClose);
+            ((System.ComponentModel.ISupportInitialize)(this.trackDeadzoneLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDeadzoneRight)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -638,6 +827,10 @@
         private System.Windows.Forms.Label labelRX;
         private System.Windows.Forms.Label labelLY;
         private System.Windows.Forms.Label labelRY;
-
+        private System.Windows.Forms.TrackBar trackDeadzoneLeft;
+        private System.Windows.Forms.Label labelDeadzones;
+        private System.Windows.Forms.TextBox textDeadzoneLeft;
+        private System.Windows.Forms.TextBox textDeadzoneRight;
+        private System.Windows.Forms.TrackBar trackDeadzoneRight;
     }
 }
